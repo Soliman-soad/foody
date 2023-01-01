@@ -16,7 +16,7 @@ import { Autoplay, Navigation } from "swiper";
 const Slider = () => {
     
   return (
-    <div className="w-full max-w-screen-xl md:pb-5  object-cover mx-auto text-white" style={{ background: `url(${bg.src})`,
+    <div className="w-full max-w-screen-2xl md:pb-5  object-cover mx-auto text-white" style={{ background: `url(${bg.src})`,
     backgroundRepeat: 'no-repeat', backgroundSize:'cover'
     }}>
       <Swiper
