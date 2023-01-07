@@ -1,22 +1,44 @@
 import Link from "next/link";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { app } from "../firebase/firebase.init";
+const auth = getAuth(app);
+
+
 
 
 const Register = () => {
+    const [errorMessage, setErrormessage] = useState(null)
+    const handleRegister = (e) =>{
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        createUserWithEmailAndPassword(auth,email,password)
+        .then(result =>{
+            const user = result.user;
+            console.log(user)
+        })
+        .catch(error =>{
+            console.log(error)
+            setErrormessage(error.message)
+        })
+    }
     return (
         <div>
             <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-100 text-gray-800 mx-auto mt-10">
 	<h1 className="text-2xl font-bold text-center">Register a Account</h1>
-	<form novalidate="" action="" className="space-y-6 ng-untouched ng-pristine ng-valid">
+	<form onSubmit={handleRegister} className="space-y-6 ng-untouched ng-pristine ng-valid">
 		<div className="space-y-1 text-sm">
 			<label for="username" className="block text-gray-600">Username</label>
-			<input type="text" name="username" id="username" placeholder="Username" className="w-full px-4 py-3 rounded-md border-gray-300 bg-white text-gray-800 focus:border-orange-600" />
+			<input type="email" name="email" id="username" placeholder="email" className="w-full px-4 py-3 rounded-md border-gray-300 bg-white text-gray-800 focus:border-orange-600" />
 		</div>
 		<div className="space-y-1 text-sm">
 			<label for="password" className="block text-gray-600">Password</label>
 			<input type="password" name="password" id="password" placeholder="Password" className="w-full px-4 py-3 rounded-md border-gray-300 bg-white text-gray-800 focus:border-orange-600" />
 			
 		</div>
-		<button className="block w-full p-3 text-center rounded-sm text-gray-50 bg-gradient-to-r from-[#FFB100] to-[#fcb220]">Sign up</button>
+        {errorMessage && <p className="text-red-600">{errorMessage}</p>}
+		<button type="submit" className="block w-full p-3 text-center rounded-sm text-gray-50 bg-gradient-to-r from-[#FFB100] to-[#fcb220]">Sign up</button>
 	</form>
 	<div className="flex items-center pt-4 space-x-1">
 		<div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
