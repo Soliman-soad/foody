@@ -17,7 +17,7 @@ const Story = () => {
             Belton is food studio that not just caters out deliciousness, but lives by the philosophy that nothing brings people together like good food. Whatever the occasion that you need our food for, whatever dietary requirements, we will make it happen.	
 			</p>
 			<div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-				<Link href="Products/Products" className="px-8 py-3 text-lg font-semibold rounded bg-[#7743DB] text-gray-50">Products</Link>
+				<Link href="Products/Products" className="px-8 py-3 text-lg font-semibold rounded bg-gray-900 text-gray-50">Products</Link>
 			</div>
 		</div>
 	</div>
