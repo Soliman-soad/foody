@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import spin from '../../../photos/spin.svg'
+import Navbar from '../Navbar'
+import Footer from '../Footer'
+import spin from '../../photos/spin.svg'
+import Head from "next/head";
 
-const Showcase = () => {
+const Products = () => {
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
   
@@ -19,13 +22,17 @@ const Showcase = () => {
     const meals = data?.meals
     console.log(meals)
     if(isLoading) {
-      return (
-          <div className="flex justify-center item center h-screen animate-spin">
-              <Image src={spin} width={100} height={100} atl='spinner'/>
-          </div>
-      )
-  }
+        return (
+            <div className="flex justify-center item center h-screen animate-spin">
+                <Image src={spin} width={100} height={100} atl='spinner'/>
+            </div>
+        )
+    }
   return (
+    <>
+    <Head>
+      <title>Products</title>
+    </Head>
     <div className="w-full">
       <div className="text-center md:mt-32 mt-10">
         <h4 className="text-lg text-white bg-[#FFB100] inline font-semibold p-1 ">
@@ -37,7 +44,7 @@ const Showcase = () => {
         </h4>
       </div>
       <div className="md:mt-20 mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 mx-auto justify-center items-center">
-        {meals && meals.slice(0,6).map((meal, i) => {
+        {meals && meals.map((meal, i) => {
            return <div key={i} className=" md:w-96 h-[600px] p-2 mx-auto bg-base-100 shadow-xl w-80">
            <figure><Image src={meal.strMealThumb} alt="Shoes" 
            width={420}
@@ -61,8 +68,9 @@ const Showcase = () => {
         })}
       </div>
     </div>
+    </>
   );
 };
 
 
-export default Showcase;
+export default Products;
