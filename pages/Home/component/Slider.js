@@ -34,7 +34,7 @@ const Slider = () => {
         <SwiperSlide >
           <div className="grid grid-cols-1 md:grid-cols-2 items-center text-center md:text-right h-full">
             <div className="w-full">
-              <h3 className="text-4xl md:text-5xl font-semibold">Find out the best food</h3>
+              <h3 className="text-4xl md:text-5xl font-semibold">Find out your favorite recipe</h3>
               <p className="text-xl mt-2 md:mt-5">We have gain our consumer trust so try our full</p>
             </div>
             <div className="order-first md:order-last ">
@@ -49,8 +49,8 @@ const Slider = () => {
         <SwiperSlide>
           <div className="grid grid-cols-1 md:grid-cols-2 items-center text-center md:text-right h-full">
             <div>
-              <h3 className="text-4xl md:text-5xl font-semibold">Find out the best food</h3>
-              <p className="text-xl mt-2 md:mt-5">We have gain our consumer trust so try our full</p>
+              <h3 className="text-4xl md:text-5xl font-semibold">Make your own creation</h3>
+              <p className="text-xl mt-2 md:mt-5">We have recipe that you will enjoy</p>
             </div>
             <div className="order-first md:order-last object-fill w-full md:h-full">
               <Image
@@ -64,8 +64,8 @@ const Slider = () => {
         <SwiperSlide>
           <div className="grid grid-cols-1 md:grid-cols-2  items-center text-center md:text-right h-full">
             <div>
-              <h3 className="text-4xl md:text-5xl font-semibold">Find out the best food</h3>
-              <p className="text-xl mt-2 md:mt-5">We have gain our consumer trust so try our full</p>
+              <h3 className="text-4xl md:text-5xl font-semibold">Food for everyone</h3>
+              <p className="text-xl mt-2 md:mt-5">find the best choice for everyone</p>
             </div>
             <div className="order-first md:order-last object-fill md:h-full">
               <Image
@@ -79,8 +79,8 @@ const Slider = () => {
         <SwiperSlide>
           <div className="grid grid-cols-1 h-full md:grid-cols-2 items-center text-center md:text-right h-full">
             <div>
-              <h3 className="text-4xl md:text-5xl font-semibold">Find out the best food</h3>
-              <p className="text-xl mt-2 md:mt-5">We have gain our consumer trust so try our full</p>
+              <h3 className="text-4xl md:text-5xl font-semibold">Make the choice for your family</h3>
+              <p className="text-xl mt-2 md:mt-5">Enjoy and make good time for your family</p>
             </div>
             <div className="order-first md:order-last object-fill md:h-full">
               <Image

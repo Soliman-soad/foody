@@ -1,12 +1,31 @@
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { app } from "../firebase/firebase.init";
 import bg from "../photos/blurry-gradient-haikei.png";
 import logp from '../photos/chef.png';
 
+const auth = getAuth(app)
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [user, setUser] =useState(null)
+    useState(()=>{
+      const unsubscribe = onAuthStateChanged(auth, currentUser=>{
+        setUser(currentUser);
+      })
+      return ()=>{
+        unsubscribe()
+      }
+    },[])
+
+    const logOut = () =>{
+      signOut(auth)
+      .then(()=>{})
+      .catch(err => console.log(err))
+    }
+    
     return (
         <div className="bg-gray-900" style={{ background: `url(${bg.src})`,
         backgroundRepeat: 'no-repeat', backgroundSize:'cover'
@@ -51,7 +70,27 @@ const Navbar = () => {
             </span>
           </Link>
           <ul className="flex items-center hidden space-x-8 lg:flex">
-            <li>
+            {
+              user 
+              ?
+              <>
+              <li
+              className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+              >
+              
+                {user?.email}
+            </li>
+              <li
+              className="font-medium tracking-wide cursor-pointer text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+              onClick={logOut}
+              >
+              
+                Sign out
+            </li>
+              </>
+              :
+              <>
+              <li>
               <Link
                 href="Login"
                 aria-label="Sign in"
@@ -71,6 +110,8 @@ const Navbar = () => {
                 Sign up
               </Link>
             </li>
+              </>
+            }
           </ul>
           <div className="lg:hidden">
             <button
@@ -145,7 +186,7 @@ const Navbar = () => {
                       </li>
                       <li>
                         <Link
-                          href="/"
+                          href="Products/Products"
                           aria-label="Our product"
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -154,10 +195,22 @@ const Navbar = () => {
                         </Link>
                       </li>
                     
-
+                    {
+                      user ? 
+                      <>
+                      <li
+                      className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                      >
+                        
+                          Sign out
+                      </li>
+                      </>
+                      :
+                      <>
+                      
                       <li>
                         <Link
-                          href="/"
+                          href="Login"
                           aria-label="Sign in"
                           title="Sign in"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -167,14 +220,27 @@ const Navbar = () => {
                       </li>
                       <li>
                         <Link
-                          href="/"
+                          href="Register"
+                          aria-label="Sign in"
+                          title="Sign in"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        onClick={logOut}
+                        >
+                          {user?.email}
+                        </Link>
+                      </li> 
+                      <li>
+                        <Link
+                          href="Register"
                           aria-label="Sign in"
                           title="Sign in"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                           Sign up
                         </Link>
-                      </li>                    
+                      </li> 
+                      </>
+                    }                   
                     </ul>
                   </nav>
                 </div>

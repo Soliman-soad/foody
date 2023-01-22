@@ -4,11 +4,12 @@ import Navbar from '../Navbar'
 import Footer from '../Footer'
 import spin from '../../photos/spin.svg'
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Products = () => {
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
-  
+    const route = useRouter()
     useEffect(() => {
       setLoading(true)
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef`)
@@ -57,10 +58,13 @@ const Products = () => {
              </div>
              <div className=" mt-6 ">
              <button
+             onClick={()=>{
+              route.push(`${meal.idMeal}`)
+             }}
                type="button"
                className="flex items-center justify-center w-full p-3 font-semibold border-none tracking-wide rounded-md bg-gradient-to-r from-[#FFB100] to-[#fcb220] text-gray-50"
              >
-               Order Now
+               See Process
              </button>
              </div>
            </div>

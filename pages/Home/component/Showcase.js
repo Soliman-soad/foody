@@ -1,11 +1,12 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import spin from '../../../photos/spin.svg'
 
 const Showcase = () => {
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
-  
+    const route = useRouter()
     useEffect(() => {
       setLoading(true)
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef`)
@@ -46,14 +47,17 @@ const Showcase = () => {
            <div className="flex flex-col justify-between relative  mt-5">
              <div>
              <h2 className="text-2xl font-semibold">{meal.strMeal}</h2>
-             <p className="text-lg font-light pt-2">Price: $ {(meal.idMeal).slice(-2)} </p>
+             <p className="text-lg font-light pt-2">Review: {(meal.idMeal).slice(-2)}/100 </p>
              </div>
              <div className=" mt-6 ">
              <button
                type="button"
+               onClick={()=>{
+                route.push(`../../Products/${meal.idMeal}`)
+               }}
                className="flex items-center justify-center w-full p-3 font-semibold border-none tracking-wide rounded-md bg-gradient-to-r from-[#FFB100] to-[#fcb220] text-gray-50"
              >
-               Order Now
+               See Process
              </button>
              </div>
            </div>
