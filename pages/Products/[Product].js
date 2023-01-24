@@ -2,22 +2,34 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import React from 'react'
 import ReactPlayer from 'react-player/youtube'
+import Image from "next/image";
 
 const Product = () => {
     const route = useRouter()
     const productId = route.query.Product
-
+    const [isLoading, setLoading] = useState(false)
     const [productData, setProductData] = useState(null);
     useEffect(()=>{
         console.log(productId)
+        setLoading(true)
         fetch(`http://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`)
         .then(res => res.json())
         .then(data => {
+            setLoading(false)
             setProductData(data)
             console.log(data)
         })
     },[])
     const foodData = productData?.meals[0]
+
+    if(isLoading) {
+        return (
+            <div className="flex justify-center item center h-screen animate-spin">
+                <Image src={spin} width={100} height={100} atl='spinner'/>
+            </div>
+        )
+    }
+
     return (
         <div className="mx-5 ">
             <h2 className="text-4xl font-semibold text-center mt-5">{foodData?.strMeal} Recipe</h2>
