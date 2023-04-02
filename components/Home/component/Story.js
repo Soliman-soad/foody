@@ -10,7 +10,7 @@ const Story = () => {
 			<img src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=740&t=st=1673069251~exp=1673069851~hmac=6d6988e946cac0c790e71587f937b34539a30ad155dff3119372ca9488e9c20b" alt="" className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128" />
 		</div>
 		<div className="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
-			<h1 className="text-5xl font-bold leading-none sm:text-4xl">
+			<h1 className="text-2xl font-bold leading-none md:text-4xl">
             Delicious food creates memories
 			</h1>
 			<p className="mt-6 mb-8 text-lg sm:mb-12">

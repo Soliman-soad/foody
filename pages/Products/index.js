@@ -6,20 +6,28 @@ import { useRouter } from "next/router";
 
 import { BiSearchAlt } from "react-icons/bi";
 const Products = ({food}) => {
-    const route = useRouter()
-    
-    const meals = food?.meals
+  const [meals, setMeals] = useState(food?.meals)
+  const [searchMeals, setSearchMeals] = useState(food?.meals)
+    const route = useRouter();
+
+    const searchMeal =(event)=>{
+      
+      setSearchMeals(meals.filter(item => item.strMeal.toLowerCase().indexOf((event.target.value).toLowerCase()) > -1 ))
+      
+    }
+
+
     if(!food) {
         return (
             <div className="flex justify-center item center h-screen animate-spin">
-                <Image src={spin} width={100} height={100} atl='spinner'/>
+                <Image src={spin} width={100} height={100} alt='spinner'/>
             </div>
         )
     }
   return (
     <>
     <Head>
-      <title>Products</title>
+      <title>Foody-Recipes</title>
     </Head>
     <div >
       <div className="text-center md:mt-32 mt-10 w-2/3 mx-auto">
@@ -30,15 +38,15 @@ const Products = ({food}) => {
         <span className="pl-3 text-lg">
           <BiSearchAlt/>
         </span>
-        <input id="search" className="w-full bg-gray-200 mx-5  py-2 border-none outline-none"/>
+        <input id="search" onChange={searchMeal} className="w-full bg-gray-200 mx-5  py-2 border-none outline-none"/>
         </label>
       </div>
-      <div className="md:mt-20 mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto">
-        {meals && meals.map((meal, i) => {
+      <div className="md:mt-20 mt-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto">
+        {searchMeals && searchMeals.map((meal, i) => {
            return <div 
            onClick={()=>{route.push(`/Products/${meal.idMeal}`) }} 
            key={i} 
-           className="relative rounded-lg cursor-pointer group w-[250px] h-[280px] overflow-hidden m-5 transition duration-200 ease-in-out ">
+           className="relative rounded-lg cursor-pointer group w-[250px] h-[280px] overflow-hidden m-5 transition duration-200 ease-in-out mx-auto">
            <div className="absolute -z-10 w-full overflow-hidden">
            <div className="group-hover:bg-gray-500/50 absolute w-full h-full z-10 border transition duration-200 ease-in-out"></div>
            <figure><Image src={meal.strMealThumb} alt={meal.strMeal} 

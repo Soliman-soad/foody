@@ -5,6 +5,6 @@ const nextConfig = {
 
 module.exports = {
   images: {
-   domains:["www.themealdb.com"] 
+   domains:["www.themealdb.com","images.unsplash.com"] 
   }
 }

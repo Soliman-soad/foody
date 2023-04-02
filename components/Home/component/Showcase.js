@@ -3,26 +3,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import spin from '../../../photos/spin.svg'
 
-const Showcase = () => {
-    const [data, setData] = useState(null)
-    const [isLoading, setLoading] = useState(false)
+const Showcase = ({food}) => {
     const route = useRouter()
-    useEffect(() => {
-      setLoading(true)
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef`)
-    .then((res) => res.json())
-    .then((data) => {
-          setData(data)
-          setLoading(false)
-        })
-    }, [])
-
-    const meals = data?.meals
+    const meals = food?.meals
    
-    if(isLoading) {
+    if(!food) {
       return (
           <div className="flex justify-center item center h-screen animate-spin">
-              <Image src={spin} width={100} height={100} atl='spinner'/>
+              <Image src={spin} width={100} height={100} alt='spinner'></Image>
           </div>
       )
   }
@@ -37,12 +25,12 @@ const Showcase = () => {
           Inspired by recipes and creations of world’s best chefs
         </h4>
       </div>
-      <div className="md:mt-20 mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 mx-auto justify-center items-center">
+      <div className="md:mt-20 mt-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-9 mx-auto justify-center items-center">
         {meals && meals.slice(0,8).map((meal, i) => {
            return <div 
            onClick={()=>{route.push(`/Products/${meal.idMeal}`) }} 
            key={i} 
-           className="relative rounded-lg cursor-pointer group w-[250px] h-[280px] overflow-hidden m-5 transition duration-200 ease-in-out">
+           className="relative rounded-lg cursor-pointer group w-[250px] h-[280px] overflow-hidden m-5 transition duration-200 ease-in-out mx-auto">
            <div className="absolute -z-10 w-full overflow-hidden">
            <div className="group-hover:bg-gray-500/50 absolute w-full h-full z-10 border transition duration-200 ease-in-out"></div>
            <figure><Image src={meal.strMealThumb} alt={meal.strMeal} 
@@ -57,9 +45,24 @@ const Showcase = () => {
          </div>
         })}
       </div>
+      <div className="flex justify-center">
+			<button  onClick={()=>{route.push(`/Products`) }}  type="button" className="px-6 py-3 text-sm rounded-md hover:underline bg-gray-50 text-gray-600">Load more foods...</button>
+		</div>
     </div>
   );
 };
 
 
 export default Showcase;
+
+
+export const getStaticProps = async() =>{
+  const res = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef');
+  const data = await res.json();
+  console.log("hi")
+   return {
+     props:{
+       food : "hi"
+     }
+   }
+ }

@@ -4,10 +4,10 @@ import Image from "next/image";
 import spin from "../../photos/spin.svg"
 import YouTube from 'react-youtube';
 import YouTubeIframe from "react-youtube-iframe";
+import Head from "next/head";
 
 const Product = ({food}) => {
 
-    console.log(food)
     const [isLoading, setLoading] = useState(false)
     
     useEffect(()=>{
@@ -25,11 +25,14 @@ const Product = ({food}) => {
       };
     const opts2 = {
         height: "320",
-        width: "520",
+        width: "320",
         
       };
       
-    return (
+    return (<>
+        <Head>
+            <title>{foodData?.strMeal} Recipe</title>
+        </Head>
         <div className="mx-5 ">
             <h2 className="text-3xl font-semibold text-center mt-5">Recipe of {foodData?.strMeal}</h2>
             <div className=" md:mt-10 mt-8">
@@ -66,6 +69,7 @@ const Product = ({food}) => {
                 </div>
             </div>
         </div>
+    </>
     );
 };
 
