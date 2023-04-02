@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import logp from '../photos/chef.png';
+import { SiJusteat } from 'react-icons/si';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -7,22 +9,15 @@ const Footer = () => {
       <footer className="px-4 divide-y dark:bg-gray-800 dark:text-gray-100 mt-10">
         <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
           <div className="lg:w-1/3">
-            <a
-              rel="noopener noreferrer"
-              href="#"
+            <Link
+              href="/"
               className="flex justify-center space-x-3 lg:justify-start"
             >
-              <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
-              <Image
-            src={logp}
-            alt='chief logo'
-            className="w-12 h-12 bg-white rounded-full p-1"
-            />
-              </div>
-              <span className="self-center text-2xl font-semibold">
-                Foody
-              </span>
-            </a>
+               <SiJusteat className=" text-3xl text-white"/>
+            <span className="ml-2 text-xl font-bold tracking-wide text-white uppercase">
+              Foody
+            </span>
+            </Link>
           </div>
           <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
             <div className="space-y-3">
@@ -141,7 +136,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="py-6 text-sm text-center dark:text-gray-400">
-          © 1968 Company Co. All rights reserved.
+          © 2022 Company Co. All rights reserved.
         </div>
       </footer>
     </>

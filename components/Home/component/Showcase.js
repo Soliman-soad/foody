@@ -18,7 +18,7 @@ const Showcase = () => {
     }, [])
 
     const meals = data?.meals
-    console.log(meals)
+   
     if(isLoading) {
       return (
           <div className="flex justify-center item center h-screen animate-spin">
@@ -37,29 +37,22 @@ const Showcase = () => {
           Inspired by recipes and creations of world’s best chefs
         </h4>
       </div>
-      <div className="md:mt-20 mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9 mx-auto justify-center items-center">
-        {meals && meals.slice(0,6).map((meal, i) => {
-           return <div key={i} className=" md:w-96 h-[600px] p-2 mx-auto bg-base-100 shadow-xl w-80">
-           <figure><Image src={meal.strMealThumb} alt="Shoes" 
-           width={420}
-           height={380}
+      <div className="md:mt-20 mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 mx-auto justify-center items-center">
+        {meals && meals.slice(0,8).map((meal, i) => {
+           return <div 
+           onClick={()=>{route.push(`/Products/${meal.idMeal}`) }} 
+           key={i} 
+           className="relative rounded-lg cursor-pointer group w-[250px] h-[280px] overflow-hidden m-5 transition duration-200 ease-in-out">
+           <div className="absolute -z-10 w-full overflow-hidden">
+           <div className="group-hover:bg-gray-500/50 absolute w-full h-full z-10 border transition duration-200 ease-in-out"></div>
+           <figure><Image src={meal.strMealThumb} alt={meal.strMeal} 
+           width={280}
+           height={300}
+           className="group-hover:scale-125 transition duration-200 ease-in-out"
            /></figure>
-           <div className="flex flex-col justify-between relative  mt-5">
-             <div>
-             <h2 className="text-2xl font-semibold">{meal.strMeal}</h2>
-             <p className="text-lg font-light pt-2">Review: {(meal.idMeal).slice(-2)}/100 </p>
-             </div>
-             <div className=" mt-6 ">
-             <button
-               type="button"
-               onClick={()=>{
-                route.push(`../../Products/${meal.idMeal}`)
-               }}
-               className="flex items-center justify-center w-full p-3 font-semibold border-none tracking-wide rounded-md bg-gradient-to-r from-[#FFB100] to-[#fcb220] text-gray-50"
-             >
-               See Process
-             </button>
-             </div>
+           </div>
+           <div className="flex items-center h-full  mt-5 z-30">
+             <p className="text-lg text-center w-full group-hover:bg-[#ffa600]/75 group-hover:text-white border-x  font-semibold bg-white/75 px-10 py-5 transition duration-200 ease-in-out">{meal.strMeal}</p>
            </div>
          </div>
         })}

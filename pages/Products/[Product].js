@@ -1,64 +1,68 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import React from 'react'
-import ReactPlayer from 'react-player/youtube'
 import Image from "next/image";
+import spin from "../../photos/spin.svg"
+import YouTube from 'react-youtube';
+import YouTubeIframe from "react-youtube-iframe";
 
-const Product = () => {
-    const route = useRouter()
-    const productId = route.query.Product
+const Product = ({food}) => {
+
+    console.log(food)
     const [isLoading, setLoading] = useState(false)
-    const [productData, setProductData] = useState(null);
+    
     useEffect(()=>{
-        console.log(productId)
-        setLoading(true)
-        fetch(`http://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`)
-        .then(res => res.json())
-        .then(data => {
-            setLoading(false)
-            setProductData(data)
-            console.log(data)
-        })
+    setLoading(!isLoading)
     },[])
-    const foodData = productData?.meals[0]
 
-    if(isLoading) {
-        return (
-            <div className="flex justify-center item center h-screen animate-spin">
-                <Image src={spin} width={100} height={100} atl='spinner'/>
-            </div>
-        )
-    }
 
+    const foodData = food
+
+    
+    const opts = {
+        height: "380",
+        width: "740",
+        
+      };
+    const opts2 = {
+        height: "320",
+        width: "520",
+        
+      };
+      
     return (
         <div className="mx-5 ">
-            <h2 className="text-4xl font-semibold text-center mt-5">{foodData?.strMeal} Recipe</h2>
-            <div className="grid items-center md:mt-10 mt-8">
-                  <div>
-                    <div className=' mx-auto w-10/12 md:w-7/12 m-5'>
-            <ReactPlayer url={foodData?.strYoutube} width playIcon playsinline={true}/>
+            <h2 className="text-3xl font-semibold text-center mt-5">Recipe of {foodData?.strMeal}</h2>
+            <div className=" md:mt-10 mt-8">
+                    <div className='mx-auto my-8'>
+                        <div className="grid md:grid-cols-12 justify-center gap-5 w-full">
+            <div className="col-span-9 flex items-center justify-center">
+           <YouTube className="mx-auto hidden md:block" opts={opts} videoId={(foodData?.strYoutube).slice(32)}/>
+           <YouTube className="md:hidden" opts={opts2} videoId={(foodData?.strYoutube).slice(32)}/>
             </div>
-                  </div>
-                <div>
-
-                    <div>
-                        <ul className="flex">
-                        <span className="font-bold mr-2">Ingredient:</span> 
-                        <li> {foodData?.strIngredient1}, </li>      
-                        <li>{foodData?.strIngredient2},</li>      
-                        <li>{foodData?.strIngredient3},</li>      
-                        <li>{foodData?.strIngredient4},</li>      
-                        <li>{foodData?.strIngredient5},</li>      
-                        <li>{foodData?.strIngredient6},</li>      
-                        <li>{foodData?.strIngredient7},</li>      
-                        <li>{foodData?.strIngredient8},</li>      
+            <div className="col-span-3 bg-slate-200 px-8 py-6">
+                        <span className="font-bold">Ingredient:</span> 
+                    <ul className="list-disc px-5 py-2">
+                        <li> {foodData?.strIngredient1} </li>      
+                        <li>{foodData?.strIngredient2}</li>      
+                        <li>{foodData?.strIngredient3}</li>      
+                        <li>{foodData?.strIngredient4}</li>      
+                        <li>{foodData?.strIngredient5}</li>      
+                        <li>{foodData?.strIngredient6}</li>      
+                        <li>{foodData?.strIngredient7}</li>      
+                        <li>{foodData?.strIngredient8}</li>      
                         <li>{foodData?.strIngredient9}</li>      
                     </ul>
-                    </div>
-                    
-                    <p><span className="font-bold"> 
-                        Process:
-                    </span> {foodData?.strInstructions}</p>
+            </div>
+           
+                        </div>
+            </div>
+                  
+                <div className="my-5">
+                        <h2 className="font-bold text-xl mb-2"> Process:
+                    </h2> 
+                    <p>
+                        
+                    {foodData?.strInstructions}</p>
                 </div>
             </div>
         </div>
@@ -66,3 +70,37 @@ const Product = () => {
 };
 
 export default Product;
+
+export const getStaticProps = async(context) =>{
+    const {params} = context;
+    
+    const res = await fetch(`http://www.themealdb.com/api/json/v1/1/lookup.php?i=${params?.Product}`)
+    const data = await res.json()
+
+    
+
+    return{
+        props:{
+            food : data?.meals[0]
+        }
+    }
+
+}
+
+export const getStaticPaths = async() =>{
+    const res = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef');
+    const foods = await res.json()
+
+    const paths = foods.meals.map(food =>{
+        return {
+            params:{
+                Product : `${food?.idMeal}`
+            }
+        }
+    })
+
+    return{
+        paths,
+        fallback : false
+    }
+}

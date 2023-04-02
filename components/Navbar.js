@@ -1,10 +1,9 @@
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { app } from "../firebase/firebase.init";
 import bg from "../photos/blurry-gradient-haikei.png";
-import logp from '../photos/chef.png';
+import { SiJusteat } from "react-icons/si";
 
 const auth = getAuth(app)
 
@@ -38,17 +37,17 @@ const Navbar = () => {
                 href="/"
                 aria-label="Our product"
                 title="Our product"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                className="font-medium tracking-wide text-white transition-colors duration-200 hover:text-teal-accent-400"
               >
                 Home 
               </Link>
             </li>
             <li>
               <Link
-                href="/Products/Products"
+                href="/Products"
                 aria-label="Our product"
                 title="Our product"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                className="font-medium tracking-wide text-white transition-colors duration-200 hover:text-teal-accent-400"
               >
                 Product
               </Link>
@@ -56,16 +55,12 @@ const Navbar = () => {
           </ul>
           <Link
             href="/"
-            aria-label="Company"
-            title="Company"
+            aria-label="Foody"
+            title="Foody"
             className="inline-flex items-center"
           >
-            <Image
-            src={logp}
-            alt='chief logo'
-            className="w-12 h-12 bg-white rounded-full p-1"
-            />
-            <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
+            <SiJusteat className=" text-3xl text-white"/>
+            <span className="ml-2 text-xl font-bold tracking-wide text-white uppercase">
               Foody
             </span>
           </Link>
@@ -75,13 +70,13 @@ const Navbar = () => {
               ?
               <>
               <li
-              className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+              className="font-medium tracking-wide text-white transition-colors duration-200 hover:text-teal-accent-400"
               >
               
                 {user?.email}
             </li>
               <li
-              className="font-medium tracking-wide cursor-pointer text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+              className="font-medium tracking-wide cursor-pointer text-white transition-colors duration-200 hover:text-teal-accent-400"
               onClick={logOut}
               >
               
@@ -92,20 +87,20 @@ const Navbar = () => {
               <>
               <li>
               <Link
-                href="Login"
+                href="/Login"
                 aria-label="Sign in"
                 title="Sign in"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                className="font-medium tracking-wide text-white transition-colors duration-200 hover:text-teal-accent-400"
               >
                 Sign in
               </Link>
             </li>
             <li>
               <Link
-                href="Register"
+                href="/Register"
                 aria-label="Sign up"
                 title="Sign up"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                className="font-medium tracking-wide text-white transition-colors duration-200 hover:text-teal-accent-400"
               >
                 Sign up
               </Link>
@@ -146,11 +141,7 @@ const Navbar = () => {
                         title="Company"
                         className="inline-flex items-center"
                       >
-                        <Image
-            src={logp}
-            alt='chief logo'
-            className="w-9 h-9 "
-            />          
+                        <SiJusteat className=" text-3xl text-white"/>
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
                           Foody
                         </span>
@@ -186,7 +177,7 @@ const Navbar = () => {
                       </li>
                       <li>
                         <Link
-                          href="Products/Products"
+                          href="Products"
                           aria-label="Our product"
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -210,7 +201,7 @@ const Navbar = () => {
                       
                       <li>
                         <Link
-                          href="Login"
+                          href="/Login"
                           aria-label="Sign in"
                           title="Sign in"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -220,7 +211,7 @@ const Navbar = () => {
                       </li>
                       <li>
                         <Link
-                          href="Register"
+                          href="/Register"
                           aria-label="Sign in"
                           title="Sign in"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"

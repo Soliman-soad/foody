@@ -3,6 +3,8 @@ import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopu
 import { useState } from "react";
 import { app } from "../firebase/firebase.init";
 import { useRouter } from "next/router";
+import { VscAccount } from "react-icons/vsc";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -66,12 +68,18 @@ const Login = () => {
 	<h1 className="text-2xl font-bold text-center">Login</h1>
 	<form onSubmit={handleLogin} className="space-y-6 ng-untouched ng-pristine ng-valid">
 		<div className="space-y-1 text-sm">
-			<label for="username" className="block text-gray-600">Username</label>
-			<input type="email" name="email" id="username" placeholder="email" className="w-full px-4 py-3 rounded-md border-gray-300 bg-white text-gray-800 focus:border-orange-600" />
+			<label for="username" className="block text-gray-600">Email</label>
+            <div className="flex items-center bg-white rounded-full px-2">
+                <VscAccount className="text-2xl"/>
+			<input type="email" name="email" id="username" placeholder="email" className="w-full px-4 py-3 rounded-full bg-white text-gray-800  outline-none" />
+            </div>
 		</div>
 		<div className="space-y-1 text-sm">
 			<label for="password" className="block text-gray-600">Password</label>
-			<input type="password" name="password" id="password" placeholder="Password" className="w-full px-4 py-3 rounded-md border-gray-300 bg-white text-gray-800 focus:border-orange-600" />
+            <div className="flex items-center bg-white rounded-full px-2">
+                <RiLockPasswordFill className="text-xl" />
+			<input type="password" name="password" id="password" placeholder="Password" className="w-full px-4 py-3 rounded-full bg-white text-gray-800  outline-none active:bg-white" />
+            </div>
 			{
                 errorMessage && <p className="text-red-600 ">{errorMessage}</p>
             }
