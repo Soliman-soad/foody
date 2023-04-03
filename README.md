@@ -14,3 +14,9 @@ Foody is online food recipe website which is build with Next Js.
 4. And I have used only server side rendering by fetching with getStaticProps.
 
 #API: mealDB
+
+```bash
+npm run dev
+# or
+yarn dev
+```
